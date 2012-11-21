@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Gmail-filters-js-api by GrexIt</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Gmail-filters-js-api</h1>
+        <h2>Manage Gmail filters within an Extension </h2>
+
+        <section id="downloads">
+          <a href="https://github.com/GrexIt/Gmail-Filters-Js-api/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/GrexIt/Gmail-Filters-Js-api/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/GrexIt/Gmail-Filters-Js-api" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>Gmail-Filters-Js-api</h1>
+
+<p>Add/Delete Gmail filters via browser extension</p>
+
+<h2>About</h2>
+
+<p>This javascript module helps Gmail extension developers to create and delete Gmail Filters for a logged in Gmail user. 
+We are already using this module in our application Inboxwhiz (<a href="http://inboxwhiz.com">http://inboxwhiz.com</a>)</p>
+
+<h2>Installation</h2>
+
+<p>Include Jquery from <a href="http://jquery.com/">http://jquery.com/</a> </p>
+
+<p>Include app.js from the package </p>
+
+<p>and we are ready </p>
+
+<h2>Available Params</h2>
+
+<pre><code>{
+from: name@domain.com
+has: label:mylabel
+hasnot: label:skip
+markread
+skipinbox
+labelas
+}
+</code></pre>
+
+<h2>Example Implementation</h2>
+
+<pre><code>var api = new Gmail_Filter_Api();
+
+api.set_gmail_params();
+
+api.createGmailFilter({"from":"anurag@grexit.com", "has":"label:inbox", "hasnot":"label:test", 
+                                 "markread":true, "skipinbox":true, "labelas":"Inboxwhiz"});
+</code></pre>
+
+<p>Now the filterid is stored as api.filterid</p>
+
+<pre><code>if(api.filterid == 0){
+    alert("Filter Could not be created");
+}
+else{
+    alert("Filter creation successful with filter id " + filterid);
+}
+</code></pre>
+
+<p>To delete the Filter:</p>
+
+<pre><code>api.deleteGmailFilter(api.filterid);
+</code></pre>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
