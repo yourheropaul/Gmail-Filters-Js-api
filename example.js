@@ -2,7 +2,7 @@ var api = new Gmail_Filter_Api();
 
 api.set_gmail_params();
 
-api.createGmailFilter({"from":"", "has":"label:inbox", "hasnot":"label:test", 
+api.createGmailFilter({"from":"name@domain.com", "has":"label:inbox", "hasnot":"label:test", 
                       "markread":true, "skipinbox":true, "labelas":"Inboxwhiz"});
 
 if(api.filterid == 0){
