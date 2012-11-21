@@ -11,6 +11,7 @@ Installation
 ------------
 
 Include Jquery from http://jquery.com/ 
+
 Include app.js from the package 
 
 and we are ready 
