@@ -18,13 +18,15 @@ and we are ready
 
 Available Params
 ----------------
-
+    
+    {
     from: name@domain.com
     has: label:mylabel
     hasnot: label:skip
     markread
     skipinbox
     labelas
+    }
 
 
 Example Implementation
