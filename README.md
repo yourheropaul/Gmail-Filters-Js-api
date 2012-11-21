@@ -1,11 +1,12 @@
 Gmail-Filters-Js-api
 ====================
 
-Manage Gmail filters within an Extension 
+Add/Delete Gmail filters via browser extension
 
 About
 -----
-This package can help you create Gmail Filters from inside an Extension. 
+This javascript module helps Gmail extension developers to create and delete Gmail Filters for a logged in Gmail user. 
+We are already using this module in our application Inboxwhiz (http://inboxwhiz.com)
 
 Installation
 ------------
