@@ -24,8 +24,10 @@ Example Implementation
 
     api.set_gmail_params();
 
-    filterid = api.createGmailFilter({"from":"*", "has":"label:inbox", "hasnot":"label:test", 
-                                     "markread":true, "skipinbox":true, "nameit":"Inboxwhiz"});
+    api.createGmailFilter({"from":"anurag@grexit.com", "has":"label:inbox", "hasnot":"label:test", 
+                                     "markread":true, "skipinbox":true, "labelas":"Inboxwhiz"});
+
+Now the filterid is stored as api.filterid
 
     if(filterid == 0){
         alert("Filter Could not be created");
@@ -34,4 +36,6 @@ Example Implementation
         alert("Filter creation successful with filter id " + filterid);
     }
 
-    api.deleteGmailFilter(filterid);
+To delete the Filter:
+
+    api.deleteGmailFilter(api.filterid);
