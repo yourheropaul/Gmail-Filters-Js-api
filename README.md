@@ -23,9 +23,9 @@ Available Params
     from: name@domain.com
     has: label:mylabel
     hasnot: label:skip
-    markread
-    skipinbox
-    labelas
+    markread:true
+    skipinbox:true
+    labelas:true
     }
 
 
