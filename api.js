@@ -1,3 +1,4 @@
+
 var Gmail_Filter_Api = function(){
 
     this.set_gmail_params = function() {
@@ -45,36 +46,51 @@ var Gmail_Filter_Api = function(){
         }
     }
 
+    function escapeRegExp(str) {
+        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    }
+
     this.process_gmail_filter_response = function(response, keyValues){
-        var RegEx = ",";
-        for(key in keyValues){
-            switch(key){
-                case "from":
-                    RegEx = RegEx + "from:\(" + keyValues[key] + "\)";
-                    break;
-                case "has":
-                    RegEx = RegEx + " " + keyValues[key];
-                    break;
-                case "hasnot":
-                    RegEx = RegEx + " -" + keyValues[key]
-            }
-        }
-        var position = response.search(RegEx);
-        if(position == -1)
+        pattern = ""
+        if(keyValues['from'] !== undefined)
+            pattern += "from:\\(" + escapeRegExp(keyValues['from']) + "\\) "
+
+        if(keyValues['has'] !== undefined)
+            pattern += keyValues['has'] + " "
+         
+        if(keyValues['hasnot'] !== undefined)
+            pattern += "-\\{" + keyValues['hasnot'] + "\\} "
+
+        if(pattern.length > 0){
+            pattern = pattern.substring(0, pattern.length-1)
+        }   
+
+        pattern = "\"\(\\d+\)\",\"" + pattern + "\"";
+
+        console.log(pattern);
+        var regex = new RegExp(pattern)
+
+        matches = response.match(regex)
+        if(matches === undefined)
             return 0;
-        positionstart = position - 13;
-        filterid = response.substring(positionstart, position);
-        if(filterid != null){
-            return filterid;
-        }
-        else
-            return 0;
+        return matches[1];
+
+    };
+
+    this.deleteGmailFilter = function(filter_id){
+       baseurl = this.gmail_params.GMAIL_BASE_URL;
+       urlsend = baseurl + "ik=" + this.gmail_params.GMAIL_IK + "&at=" + this.gmail_params.GMAIL_AT + "&view=up&act=df&pcd=1&mb=0&rt=c";
+       postdata = "tfi=" + filter_id;
+
+       $.post(urlsend, postdata, function(data){
+            var gmailresponse = data;
+            console.log(data);
+       });
     };
 
     this.createGmailFilter = function(keyValues) {
        thisobj = this;
-       var iwgmail = new IwGmail();
-       baseurl = this.gmail_params.GMAIL_BASE_URL
+       baseurl = this.gmail_params.GMAIL_BASE_URL;
        gmail_filter_url = baseurl + "ik=" + this.gmail_params.GMAIL_IK + "&at=" + this.gmail_params.GMAIL_AT + "&view=up&act=cf&pcd=1&mb=0&rt=c"
 
        //GMail filter variables
@@ -82,7 +98,7 @@ var Gmail_Filter_Api = function(){
        for(key in keyValues){
             switch(key){
                 case "from":
-                    postdata = postdata + "cf1_from=" + keyValues[key];
+                    postdata = postdata + "&cf1_from=" + keyValues[key];
                     break;
                 case "has":
                     postdata = postdata + "&cf1_has=" + keyValues[key];
@@ -97,13 +113,13 @@ var Gmail_Filter_Api = function(){
                     postdata = postdata + "&cf2_cat=true";
                     break;
                 case "nameit":
-                    postdata = postdata + "cf2_sel=" + keyValues[key];
+                    postdata = postdata + "&cf2_sel=" + keyValues[key];
 
             }
        }
 
        jQuery.post(gmail_filter_url, postdata, function(gmail_response){
-            return thisobj.process_gmail_filter_response(gmail_response, keyValues);
+            thisobj.filterid = thisobj.process_gmail_filter_response(gmail_response, keyValues);
        });
     };
 
