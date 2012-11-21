@@ -15,7 +15,17 @@ Include Jquery from http://jquery.com/
 Include app.js from the package 
 
 and we are ready 
- 
+
+Available Params
+----------------
+
+    from: name@domain.com
+    has: label:mylabel
+    hasnot: label:skip
+    markread
+    skipinbox
+    labelas
+
 
 Example Implementation
 -------
@@ -29,7 +39,7 @@ Example Implementation
 
 Now the filterid is stored as api.filterid
 
-    if(filterid == 0){
+    if(api.filterid == 0){
         alert("Filter Could not be created");
     }
     else{

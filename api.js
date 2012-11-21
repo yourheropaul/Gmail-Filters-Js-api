@@ -112,7 +112,7 @@ var Gmail_Filter_Api = function(){
                 case "skipinbox":
                     postdata = postdata + "&cf2_cat=true";
                     break;
-                case "nameit":
+                case "labelas":
                     postdata = postdata + "&cf2_sel=" + keyValues[key];
 
             }
